@@ -14,17 +14,21 @@ const isVideo = (path: string) => /\.(mp4|webm)$/i.test(path);
         alt="Under construction"
         class="mx-auto pt-4"
     />
-    <h1>hallo verden</h1>
+    <h1>Velkommen!</h1>
+    <hr/>
+
+    <h2>Siste innlegg</h2>
     {
         posts.map(async (post) => {
             const { Content } = await render(post);
             const { title, media, publishedAt, url } = post.data;
             return (
-                <article id={post.id}>
-                    <h2>{url ? <a href={url}>{title}</a> : title}</h2>
+                <article id={post.id} class="p-1 border shadow">
+                    <h3 class="m-0">{url ? <a href={url}>{title}</a> : title}</h3>
                     <time datetime={publishedAt.toISOString()}>
                         {publishedAt.toLocaleDateString("no", { timeZone: "Europe/Oslo" })}
                     </time>
+
                     {media && (isVideo(media) ? <video src={media} controls /> : <img src={media} alt="" />)}
                     <Content />
                 </article>

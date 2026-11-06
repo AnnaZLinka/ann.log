@@ -29,6 +29,10 @@
 	--color-teal: #006666;
 	--color-gold: #ffcc00;
 	--color-lime: #ccff33;
+
+	/* hard offset, no blur: the win95 look */
+	--shadow-*: initial;
+	--shadow: 4px 4px 0 var(--color-black);
 }
 
 @layer base {
