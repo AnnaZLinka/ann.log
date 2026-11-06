@@ -1,5 +1,4 @@
 ---
-$schema: ../.astro/collections/posts.schema.json
 title: hallo verden
 media: /assets/media/wink.gif
 publishedAt: 2026-11-06
