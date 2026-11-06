@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import fire from '../assets/fire.gif';
 const { title } = Astro.props;
 ---
 
@@ -18,7 +19,7 @@ const { title } = Astro.props;
 		</main>
 		<footer class="container px-0 pt-2 mt-4 bg-black text-white text-center text-sm">
 			&copy; {new Date().getFullYear()}
-			<div class="h-[60px] mt-2 bg-[url(/assets/fire.gif)] bg-repeat-x bg-bottom" />
+			<div class="h-[60px] mt-2 bg-repeat-x bg-bottom" style={`background-image:url(${fire.src})`} />
 		</footer>
 	</body>
 </html>

@@ -2,16 +2,14 @@
 import { render } from "astro:content";
 import { getPublishedPosts } from "../posts";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import construction from "../assets/construction.gif";
 
 const posts = await getPublishedPosts();
 ---
 
 <Layout title="Velkommen!">
-    <img
-        src="/assets/construction.gif"
-        alt="Under construction"
-        class="py-4"
-    />
+    <Image src={construction} alt="Under construction" class="py-4" loading="eager" />
     <h1>Velkommen!</h1>
     <p>… til mitt personlige nettsted !</p>
     <hr/>
