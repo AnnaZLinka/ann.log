@@ -16,5 +16,9 @@ const { title } = Astro.props;
 		<main class="container py-4 shadow">
 			<slot />
 		</main>
+		<footer class="container px-0 pt-2 mt-4 bg-black text-white text-center text-sm">
+			&copy; {new Date().getFullYear()}
+			<div class="h-[60px] mt-2 bg-[url(/assets/fire.gif)] bg-repeat-x bg-bottom" />
+		</footer>
 	</body>
 </html>

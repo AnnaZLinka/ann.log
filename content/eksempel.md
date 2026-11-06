@@ -1,11 +1,8 @@
 ---
-title: nyttige lenker
+title: eksempel
 publishedAt: 2026-11-06
 ---
 
-Her er noen nyttige lenker som jeg bruker daglig:
+![en abstrakt animasjon](/assets/example.gif)
 
-- [google](https://google.com)
-- [wikipedia](https://wikipedia.org)
-- [gifcities](https://gifcities.org/) (kule gifer!)
-- [???](/hemmelig)
+[[kilde]](https://web.archive.org/web/20090729073837/http://geocities.com/teenactionrecords/)
