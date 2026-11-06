@@ -22,7 +22,7 @@ export async function GET(context) {
 			title: post.data.title,
 			pubDate: post.data.publishedAt,
 			description: post.body,
-			link: post.data.url ?? `/#${post.id}`,
+			link: `/#${post.id}`,
 			...(post.data.media && { enclosure: enclosure(post.data.media) }),
 		})),
 	});

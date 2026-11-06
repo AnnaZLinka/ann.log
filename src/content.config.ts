@@ -8,7 +8,6 @@ const posts = defineCollection({
 		title: z.string(),
 		media: z.string().optional(),
 		publishedAt: z.coerce.date(),
-		url: z.url().optional(),
 	}),
 });
 
