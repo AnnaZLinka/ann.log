@@ -12,19 +12,20 @@ const isVideo = (path: string) => /\.(mp4|webm)$/i.test(path);
     <img
         src="/assets/images/construction.gif"
         alt="Under construction"
-        class="mx-auto pt-4"
+        class="py-4"
     />
-    <h1>Velkommen!</h1>
+    <h1>Velkommen</h1>
+    <p>… til mitt personlige nettsted !</p>
     <hr/>
 
-    <h2>Siste innlegg</h2>
+    <h2 class="text-lg">Mine siste innlegg</h2>
     {
         posts.map(async (post) => {
             const { Content } = await render(post);
             const { title, media, publishedAt, url } = post.data;
             return (
-                <article id={post.id} class="p-1 border shadow">
-                    <h3 class="m-0">{url ? <a href={url}>{title}</a> : title}</h3>
+                <article id={post.id} class="p-1 border shadow bg-white">
+                    <h3 class="m-0 text-xl">{url ? <a href={url}>{title}</a> : title}</h3>
                     <time datetime={publishedAt.toISOString()}>
                         {publishedAt.toLocaleDateString("no", { timeZone: "Europe/Oslo" })}
                     </time>
