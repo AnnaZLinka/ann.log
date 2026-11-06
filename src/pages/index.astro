@@ -23,7 +23,7 @@ const isVideo = (path: string) => /\.(mp4|webm)$/i.test(path);
                 <article id={post.id}>
                     <h2>{url ? <a href={url}>{title}</a> : title}</h2>
                     <time datetime={publishedAt.toISOString()}>
-                        {publishedAt.toLocaleDateString("no")}
+                        {publishedAt.toLocaleString("no", { dateStyle: "short", timeStyle: "short", timeZone: "Europe/Oslo" })}
                     </time>
                     {media && (isVideo(media) ? <video src={media} controls /> : <img src={media} alt="" />)}
                     <Content />
