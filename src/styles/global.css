@@ -32,7 +32,7 @@
 
   /* hard offset, no blur: the win95 look */
   --shadow-*: initial;
-  --shadow: 2px 2px 8px color-mix(in srgb, var(--color-ink) 50%, transparent);
+  --shadow: 2px 2px 8px color-mix(in srgb, var(--color-ink) 80%, transparent);
 }
 
 @layer base {

@@ -1,4 +1,4 @@
 {
-  "recommendations": ["astro-build.astro-vscode", "redhat.vscode-yaml"],
+  "recommendations": ["astro-build.astro-vscode"],
   "unwantedRecommendations": []
 }

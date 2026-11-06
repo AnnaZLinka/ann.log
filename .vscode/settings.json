@@ -1,5 +1,0 @@
-{
-  "yaml.schemas": {
-    ".astro/collections/posts.schema.json": "content/**/*.md"
-  }
-}
