@@ -1,5 +1,11 @@
 ---
+import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+const posts = (await getCollection("posts")).sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+const isVideo = (path: string) => /\.(mp4|webm)$/i.test(path);
 ---
 
 <Layout title="Velkommen!">
@@ -9,8 +15,20 @@ import Layout from "../layouts/Layout.astro";
         class="mx-auto pt-4"
     />
     <h1>hallo verden</h1>
-    <p>
-        velkommen til mitt personlige nettsted! klikk på{" "}
-        <a href="/hallo">denne linken</a>.
-    </p>
+    {
+        posts.map(async (post) => {
+            const { Content } = await render(post);
+            const { title, media, publishedAt, url } = post.data;
+            return (
+                <article id={post.id}>
+                    <h2>{url ? <a href={url}>{title}</a> : title}</h2>
+                    <time datetime={publishedAt.toISOString()}>
+                        {publishedAt.toLocaleDateString("no")}
+                    </time>
+                    {media && (isVideo(media) ? <video src={media} controls /> : <img src={media} alt="" />)}
+                    <Content />
+                </article>
+            );
+        })
+    }
 </Layout>
