@@ -40,8 +40,10 @@ lister og bilder fungerer som vanlig Markdown.
 - **`title`** og **`pubDate`** må være med øverst i fila.
 - Innleggene vises nyeste først på forsiden og i feeden.
 - Bilder legger du i `src/assets/` og lenker til med `../src/assets/filnavn`.
-- Bruk Markdown-syntaksen `![beskrivelse](../src/assets/filnavn)`, ikke `<img>`-tagger.
-  Da blir bildene komprimert automatisk og fungerer både på nettstedet og i RSS-lesere.
+- Både Markdown-syntaksen `![beskrivelse](../src/assets/filnavn)` og vanlige
+  `<img>`-tagger fungerer. Bildene blir komprimert automatisk og vises både på
+  nettstedet og i RSS-lesere. `width` og `height` på `<img>` overstyres av
+  bildets faktiske størrelse.
 - Bygget stopper hvis et bilde er over 4000 px bredt/høyt eller
   over 10 MB, så skaler ned slike før du legger dem inn.
 - Innleggene vises også i RSS-lesere. Feeden fjerner skript og annet enn vanlig
