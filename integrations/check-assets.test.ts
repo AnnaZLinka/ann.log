@@ -4,9 +4,9 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
-import { findOversizedImages } from "./check-assets.mjs";
+import { findOversizedImages } from "./check-assets.ts";
 
-let dir;
+let dir = "";
 before(async () => {
   dir = await mkdtemp(join(tmpdir(), "check-assets-"));
   await sharp({

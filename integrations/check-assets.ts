@@ -2,6 +2,7 @@ import { readdir, stat } from "node:fs/promises";
 import { join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import type { AstroIntegration } from "astro";
 
 const MAX_SIDE_PX = 4000;
 const MAX_FILE_MB = 10;
@@ -14,19 +15,19 @@ const IMAGE_EXTENSIONS = new Set([
   ".avif",
 ]);
 
-const listImages = async (dir) => {
+const listImages = async (dir: string) => {
   try {
     return (await readdir(dir, { recursive: true })).filter((name) =>
       IMAGE_EXTENSIONS.has(extname(name).toLowerCase()),
     );
   } catch (error) {
-    if (error.code === "ENOENT") return [];
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
     throw error;
   }
 };
 
-export const findOversizedImages = async (dir) => {
-  const problems = [];
+export const findOversizedImages = async (dir: string) => {
+  const problems: string[] = [];
   for (const name of await listImages(dir)) {
     const path = relative(process.cwd(), join(dir, name));
     const sizeMb = (await stat(path)).size / 1024 / 1024;
@@ -37,11 +38,12 @@ export const findOversizedImages = async (dir) => {
       );
     }
 
-    let width, height;
+    let width: number | undefined;
+    let height: number | undefined;
     try {
       ({ width, height } = await sharp(path).metadata());
     } catch (error) {
-      problems.push(`${path} kunne ikke leses som bilde: ${error.message}`);
+      problems.push(`${path} kunne ikke leses som bilde: ${(error as Error).message}`);
       continue;
     }
     if (!width || !height) {
@@ -58,8 +60,8 @@ export const findOversizedImages = async (dir) => {
   return problems;
 };
 
-export default () => {
-  let assetsDir;
+export default (): AstroIntegration => {
+  let assetsDir = "";
   return {
     name: "check-assets",
     hooks: {

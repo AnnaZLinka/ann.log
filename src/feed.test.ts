@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { toFeedHtml, toFeedText, pickFeedImage } from "./feed.mjs";
+import { toFeedHtml, toFeedText, pickFeedImage } from "./feed.ts";
 
 const SITE = "https://example.com";
 
@@ -45,6 +45,7 @@ test("picks the largest candidate at or under the max width", () => {
     height: "3000",
     sizes: "100vw",
   });
+  assert.ok(out);
   assert.equal(out.src, "/b.webp");
   assert.equal(out.width, "1280");
   assert.equal(out.height, "960");
@@ -59,6 +60,7 @@ test("picks the only candidate when all are smaller", () => {
     width: "19",
     height: "19",
   });
+  assert.ok(out);
   assert.equal(out.src, "/w.webp");
   assert.equal(out.width, "19");
 });
@@ -70,6 +72,7 @@ test("picks the smallest candidate when all are wider", () => {
     width: "2000",
     height: "1000",
   });
+  assert.ok(out);
   assert.equal(out.src, "/a.webp");
   assert.equal(out.height, "750");
 });
