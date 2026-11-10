@@ -15,9 +15,10 @@ if (!SITE_URL) throw new Error('SITE_URL is required (see .env.example)');
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  // markdown images have no requested width, so astro builds candidates up to the intrinsic size; few breakpoints keep the variant count low
+  // few breakpoints keep the variant count low, since markdown images get candidates up to their intrinsic size
   image: {
     layout: 'constrained',
+    responsiveStyles: true,
     breakpoints: [640, 1280, 1920]
   },
   integrations: [checkAssets()],
