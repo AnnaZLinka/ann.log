@@ -1,14 +1,15 @@
-# Netlife mikroblogg
+# astro-netlifecity-template
 
-En liten mal for et personlig nettsted med egen RSS-feed. Feeden plukkes opp av
-[feed.netlife.com](https://feed.netlife.com), så alt du poster her dukker opp der.
+A small template for a personal website with its own RSS feed. The feed is picked
+up by [feed.netlife.com](https://feed.netlife.com), so everything you post here
+shows up there too.
 
-## Kom i gang
+## Getting started
 
-Du trenger [Node.js](https://nodejs.org) (versjon 22 eller nyere).
+You need [Node.js](https://nodejs.org) (version 26 or newer).
 
-1. Lag en kopi av dette repoet (fork eller "Use this template" på GitHub) og last det ned.
-2. Åpne en terminal i mappa og kjør:
+1. Make a copy of this repo (fork or "Use this template" on GitHub) and download it.
+2. Open a terminal in the folder and run:
 
    ```sh
    npm install
@@ -16,74 +17,71 @@ Du trenger [Node.js](https://nodejs.org) (versjon 22 eller nyere).
    npm run dev
    ```
 
-3. Åpne [localhost:4321](http://localhost:4321) i nettleseren.
+3. Open [localhost:4321](http://localhost:4321) in your browser.
 
-## Skrive innlegg
+## Writing posts
 
-Hvert innlegg er en Markdown-fil i mappa `content/`. Lag en ny fil, for eksempel
-`content/min-første-post.md`:
+Each post is a Markdown file in the `content/` folder. Create a new file, for
+example `content/my-first-post.md`:
 
 ```md
 ---
-title: min første post
+title: my first post
 pubDate: 2026-11-06
 ---
 
-Her skriver du hva du vil. **Fet tekst**, [lenker](https://example.com),
-lister og bilder fungerer som vanlig Markdown.
+Write whatever you like here. **Bold text**, [links](https://example.com),
+lists and images work like regular Markdown.
 
-![en gif](../src/assets/wink.gif)
+![a gif](../src/assets/wink.gif)
 ```
 
-## Det du trenger å vite
+## What you need to know
 
-- **`title`** og **`pubDate`** må være med øverst i fila.
-- Innleggene vises nyeste først på forsiden og i feeden.
-- Bilder legger du i `src/assets/` og lenker til med `../src/assets/filnavn`.
-- Både Markdown-syntaksen `![beskrivelse](../src/assets/filnavn)` og vanlige
-  `<img>`-tagger fungerer. Bildene blir komprimert automatisk og vises både på
-  nettstedet og i RSS-lesere. `width` og `height` på `<img>` overstyres av
-  bildets faktiske størrelse.
-- Bygget stopper hvis et bilde er over 4000 px bredt/høyt eller
-  over 10 MB, så skaler ned slike før du legger dem inn.
-- Innleggene vises også i RSS-lesere. Feeden fjerner skript og annet enn vanlig
-  tekst, lenker og bilder.
-- Filnavnet blir en del av lenken til innlegget, så bruk små bokstaver og bindestrek.
+- **`title`** and **`pubDate`** must be present at the top of the file.
+- Posts are shown newest first on the front page and in the feed.
+- Put images in `src/assets/` and link to them with `../src/assets/<filename>`.
+- The build stops if an image is wider or taller than 4000 px or larger than
+  10 MB, so scale such images down before adding them.
+- Posts also appear in RSS readers. The feed strips scripts and anything other
+  than plain text, links and images.
+- The filename becomes part of the link to the post, so use lowercase letters
+  and hyphens.
 
-## Endre utseende og sider
+## Changing the look and pages
 
-- `src/pages/index.astro` er forsiden.
-- `src/layouts/Layout.astro` er rammen rundt alle sider (topp, bunn, RSS-knapp).
-- `src/styles/global.css` er stilene. Prosjektet bruker [Tailwind](https://tailwindcss.com).
-- Vil du ha en ny side? Lag en ny `.astro`-fil i `src/pages/`. `hemmelig.astro`
-  blir for eksempel til `/hemmelig`.
+- `src/pages/index.astro` is the front page.
+- `src/layouts/Layout.astro` is the frame around every page (header, footer, RSS button).
+- `src/styles/global.css` holds the styles. The project uses [Tailwind](https://tailwindcss.com).
+- Want a new page? Create a new `.astro` file in `src/pages/`. `secret.astro`
+  becomes `/secret`, for example.
 
-## RSS-feeden
+## The RSS feed
 
-Feeden ligger på `/rss.xml` og lages automatisk fra innleggene. Tittel og
-beskrivelse på feeden endrer du i `src/pages/rss.xml.js`. Det er denne adressen
-du melder inn til feed.netlife.com.
+The feed lives at `/rss.xml` and is generated automatically from the posts. You
+change the feed's title and description in `src/pages/rss.xml.js`. This is the
+address you submit to feed.netlife.com.
 
-## Publisere
+## Publishing
 
-`npm run build` lager en ferdig statisk versjon i `dist/`. Den kan legges ut hvor
-som helst som serverer statiske filer, for eksempel Netlify, Vercel eller GitHub
-Pages. Uansett hvor du publiserer må `SITE_URL` settes som miljøvariabel i
-byggeinnstillingene til tjenesten (for eksempel `https://mittnavn.vercel.app`).
-Det er adressen nettstedet ligger på, og lenkene i RSS-feeden bygges fra den.
-Mangler den, stopper bygget. Lokalt holder det at du har kjørt
-`cp .env.example .env` som vist over.
+`npm run build` creates a finished static version in `dist/`. It can be hosted
+anywhere that serves static files, such as Netlify, Vercel or GitHub Pages.
+Wherever you publish, `SITE_URL` must be set as an environment variable in the
+service's build settings (for example `https://myname.vercel.app`). It is the
+address the site lives at, and the links in the RSS feed are built from it. If
+it is missing, the build stops. Locally it is enough to have run
+`cp .env.example .env` as shown above.
 
-Enklest er å dytte prosjektet til GitHub og koble repoet til for eksempel
-[Vercel](https://vercel.com) eller [Netlify](https://netlify.com). Da bygges og
-publiseres nettstedet automatisk hver gang du pusher en endring.
+The easiest route is to push the project to GitHub and connect the repo to
+[Vercel](https://vercel.com) or [Netlify](https://netlify.com), for example.
+The site is then built and published automatically every time you push a change.
 
-## Kommandoer
+## Commands
 
-| Kommando          | Hva den gjør                      |
-| ----------------- | --------------------------------- |
-| `npm run dev`     | Starter lokal utviklingsserver    |
-| `npm run build`   | Bygger nettstedet til `dist/`     |
-| `npm run preview` | Viser det bygde nettstedet lokalt |
+| Command           | What it does                  |
+| ----------------- | ----------------------------- |
+| `npm run dev`     | Starts the local dev server   |
+| `npm run build`   | Builds the site into `dist/`  |
+| `npm run preview` | Serves the built site locally |
 
-Lurer du på noe mer om Astro? Se [docs.astro.build](https://docs.astro.build).
+Curious about Astro? See [docs.astro.build](https://docs.astro.build).

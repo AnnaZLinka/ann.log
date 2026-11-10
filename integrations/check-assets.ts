@@ -33,8 +33,8 @@ export const findOversizedImages = async (dir: string) => {
     const sizeMb = (await stat(path)).size / 1024 / 1024;
     if (sizeMb > MAX_FILE_MB) {
       problems.push(
-        `${path} er ${sizeMb.toFixed(1)} MB, grensen er ${MAX_FILE_MB} MB.\n` +
-          `  Komprimer eller skaler ned bildet før du legger det inn.`,
+        `${path} is ${sizeMb.toFixed(1)} MB, the limit is ${MAX_FILE_MB} MB.\n` +
+          `  Compress or scale down the image before adding it.`,
       );
     }
 
@@ -43,17 +43,19 @@ export const findOversizedImages = async (dir: string) => {
     try {
       ({ width, height } = await sharp(path).metadata());
     } catch (error) {
-      problems.push(`${path} kunne ikke leses som bilde: ${(error as Error).message}`);
+      problems.push(
+        `${path} could not be read as an image: ${(error as Error).message}`,
+      );
       continue;
     }
     if (!width || !height) {
-      problems.push(`${path} mangler dimensjoner, kan ikke sjekke størrelsen.`);
+      problems.push(`${path} has no dimensions, cannot check its size.`);
       continue;
     }
     if (Math.max(width, height) > MAX_SIDE_PX) {
       problems.push(
-        `${path} er ${width}×${height} px, grensen er ${MAX_SIDE_PX} px på lengste side.\n` +
-          `  Skaler ned, f.eks.: magick ${path} -resize ${MAX_SIDE_PX}x${MAX_SIDE_PX}\\> ${path}`,
+        `${path} is ${width}×${height} px, the limit is ${MAX_SIDE_PX} px on the longest side.\n` +
+          `  Scale it down, e.g.: magick ${path} -resize ${MAX_SIDE_PX}x${MAX_SIDE_PX}\\> ${path}`,
       );
     }
   }
@@ -73,7 +75,7 @@ export default (): AstroIntegration => {
         if (problems.length === 0) return;
         for (const problem of problems) logger.error(problem);
         throw new Error(
-          `Bygget stoppet: ${problems.length} bilde(r) i ${relative(process.cwd(), assetsDir)} er for store eller ugyldige.`,
+          `Build stopped: ${problems.length} image(s) in ${relative(process.cwd(), assetsDir)} are too large or invalid.`,
         );
       },
     },
