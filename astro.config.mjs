@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 
 import tailwindcss from '@tailwindcss/vite';
+import checkAssets from './integrations/check-assets.mjs';
 
 // config runs before astro env is available, so read it via vite directly
 const env = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
@@ -14,6 +15,12 @@ if (!SITE_URL) throw new Error('SITE_URL is required (see .env.example)');
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+  // markdown images have no requested width, so astro builds candidates up to the intrinsic size; few breakpoints keep the variant count low
+  image: {
+    layout: 'constrained',
+    breakpoints: [640, 1280, 1920]
+  },
+  integrations: [checkAssets()],
   vite: {
     plugins: [tailwindcss()]
   }

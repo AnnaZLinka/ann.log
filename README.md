@@ -30,7 +30,7 @@ Hvert innlegg er en Markdown-fil i mappa `content/`. Lag en ny fil, for eksempel
 ```md
 ---
 title: min første post
-publishedAt: 2026-11-06
+pubDate: 2026-11-06
 ---
 
 Her skriver du hva du vil. **Fet tekst**, [lenker](https://example.com),
@@ -39,22 +39,18 @@ lister og bilder fungerer som vanlig Markdown.
 ![en gif](../src/assets/wink.gif)
 ```
 
-Det du trenger å vite:
+## Det du trenger å vite:
 
-- **`title`** og **`publishedAt`** må være med øverst i fila.
+- **`title`** og **`pubDate`** må være med øverst i fila.
 - Innleggene vises nyeste først på forsiden og i feeden.
-- Innlegg med dato fram i tid vises ikke før datoen er passert (og nettstedet er
-  bygget på nytt). Greit for å forberede noe du vil publisere senere.
-- Bilder og gifer legger du i `src/assets/` og lenker til med `../src/assets/filnavn`.
+- Bilder legger du i `src/assets/` og lenker til med `../src/assets/filnavn`.
+- Bruk Markdown-syntaksen `![beskrivelse](../src/assets/filnavn)`, ikke `<img>`-tagger.
+  Da blir bildene komprimert automatisk og fungerer både på nettstedet og i RSS-lesere.
+- Bygget stopper hvis et bilde er over 4000 px bredt/høyt eller
+  over 10 MB, så skaler ned slike før du legger dem inn.
+- Innleggene vises også i RSS-lesere. Feeden fjerner skript og annet enn vanlig
+  tekst, lenker og bilder.
 - Filnavnet blir en del av lenken til innlegget, så bruk små bokstaver og bindestrek.
-
-## Endre utseende og sider
-
-- `src/pages/index.astro` er forsiden.
-- `src/layouts/Layout.astro` er rammen rundt alle sider (topp, bunn, RSS-knapp).
-- `src/styles/global.css` er stilene. Prosjektet bruker [Tailwind](https://tailwindcss.com).
-- Vil du ha en ny side? Lag en ny `.astro`-fil i `src/pages/`. `hemmelig.astro`
-  blir for eksempel til `/hemmelig`.
 
 ## RSS-feeden
 
@@ -66,7 +62,8 @@ du melder inn til feed.netlife.com.
 
 `npm run build` lager en ferdig statisk versjon i `dist/`. Den kan legges ut hvor
 som helst som serverer statiske filer, for eksempel Netlify, Vercel eller GitHub
-Pages. Husk å sette `SITE_URL` som miljøvariabel der du publiserer.
+Pages. Vercel finner adressen selv. På Netlify, GitHub Pages og andre tjenester
+må `SITE_URL` settes som miljøvariabel i byggeinnstillingene, ellers stopper bygget.
 
 Enklest er å dytte prosjektet til GitHub og koble repoet til for eksempel
 [Vercel](https://vercel.com) eller [Netlify](https://netlify.com). Da bygges og

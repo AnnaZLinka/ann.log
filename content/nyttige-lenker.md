@@ -1,6 +1,6 @@
 ---
 title: nyttige lenker
-publishedAt: 2026-11-05
+pubDate: 2026-11-05
 ---
 
 Her er noen nyttige lenker som jeg bruker daglig:

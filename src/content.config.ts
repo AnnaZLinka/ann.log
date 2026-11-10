@@ -6,7 +6,7 @@ const posts = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./content" }),
 	schema: z.object({
 		title: z.string(),
-		publishedAt: z.coerce.date(),
+		pubDate: z.coerce.date(),
 	}),
 });
 
