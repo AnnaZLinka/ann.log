@@ -35,7 +35,7 @@ lister og bilder fungerer som vanlig Markdown.
 ![en gif](../src/assets/wink.gif)
 ```
 
-## Det du trenger å vite:
+## Det du trenger å vite
 
 - **`title`** og **`pubDate`** må være med øverst i fila.
 - Innleggene vises nyeste først på forsiden og i feeden.
@@ -47,6 +47,14 @@ lister og bilder fungerer som vanlig Markdown.
 - Innleggene vises også i RSS-lesere. Feeden fjerner skript og annet enn vanlig
   tekst, lenker og bilder.
 - Filnavnet blir en del av lenken til innlegget, så bruk små bokstaver og bindestrek.
+
+## Endre utseende og sider
+
+- `src/pages/index.astro` er forsiden.
+- `src/layouts/Layout.astro` er rammen rundt alle sider (topp, bunn, RSS-knapp).
+- `src/styles/global.css` er stilene. Prosjektet bruker [Tailwind](https://tailwindcss.com).
+- Vil du ha en ny side? Lag en ny `.astro`-fil i `src/pages/`. `hemmelig.astro`
+  blir for eksempel til `/hemmelig`.
 
 ## RSS-feeden
 
