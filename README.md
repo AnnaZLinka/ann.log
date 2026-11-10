@@ -69,8 +69,8 @@ som helst som serverer statiske filer, for eksempel Netlify, Vercel eller GitHub
 Pages. Uansett hvor du publiserer må `SITE_URL` settes som miljøvariabel i
 byggeinnstillingene til tjenesten (for eksempel `https://mittnavn.vercel.app`).
 Det er adressen nettstedet ligger på, og lenkene i RSS-feeden bygges fra den.
-Mangler den, stopper bygget. Lokalt holder det at `.env` finnes, slik
-`npm install`-steget over viser.
+Mangler den, stopper bygget. Lokalt holder det at du har kjørt
+`cp .env.example .env` som vist over.
 
 Enklest er å dytte prosjektet til GitHub og koble repoet til for eksempel
 [Vercel](https://vercel.com) eller [Netlify](https://netlify.com). Da bygges og
