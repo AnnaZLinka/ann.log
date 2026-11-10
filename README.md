@@ -18,10 +18,6 @@ Du trenger [Node.js](https://nodejs.org) (versjon 22 eller nyere).
 
 3. Åpne [localhost:4321](http://localhost:4321) i nettleseren.
 
-Fila `.env` inneholder `SITE_URL`, adressen nettstedet skal ligge på. Lokalt kan
-den stå som den er. Når du publiserer må den peke på den ekte adressen, ellers
-blir lenkene i RSS-feeden feil.
-
 ## Skrive innlegg
 
 Hvert innlegg er en Markdown-fil i mappa `content/`. Lag en ny fil, for eksempel
@@ -62,8 +58,11 @@ du melder inn til feed.netlife.com.
 
 `npm run build` lager en ferdig statisk versjon i `dist/`. Den kan legges ut hvor
 som helst som serverer statiske filer, for eksempel Netlify, Vercel eller GitHub
-Pages. Vercel finner adressen selv. På Netlify, GitHub Pages og andre tjenester
-må `SITE_URL` settes som miljøvariabel i byggeinnstillingene, ellers stopper bygget.
+Pages. Uansett hvor du publiserer må `SITE_URL` settes som miljøvariabel i
+byggeinnstillingene til tjenesten (for eksempel `https://mittnavn.vercel.app`).
+Det er adressen nettstedet ligger på, og lenkene i RSS-feeden bygges fra den.
+Mangler den, stopper bygget. Lokalt holder det at `.env` finnes, slik
+`npm install`-steget over viser.
 
 Enklest er å dytte prosjektet til GitHub og koble repoet til for eksempel
 [Vercel](https://vercel.com) eller [Netlify](https://netlify.com). Da bygges og
