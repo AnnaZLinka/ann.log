@@ -1,8 +1,8 @@
 import { readdir, stat } from "node:fs/promises";
-import { join, extname } from "node:path";
+import { join, extname, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
-const ASSETS_DIR = "src/assets";
 const MAX_SIDE_PX = 4000;
 const MAX_FILE_MB = 10;
 const IMAGE_EXTENSIONS = new Set([
@@ -14,14 +14,21 @@ const IMAGE_EXTENSIONS = new Set([
   ".avif",
 ]);
 
-const findOversizedImages = async () => {
-  const files = (await readdir(ASSETS_DIR, { recursive: true })).filter(
-    (name) => IMAGE_EXTENSIONS.has(extname(name).toLowerCase()),
-  );
+const listImages = async (dir) => {
+  try {
+    return (await readdir(dir, { recursive: true })).filter((name) =>
+      IMAGE_EXTENSIONS.has(extname(name).toLowerCase()),
+    );
+  } catch (error) {
+    if (error.code === "ENOENT") return [];
+    throw error;
+  }
+};
 
+export const findOversizedImages = async (dir) => {
   const problems = [];
-  for (const name of files) {
-    const path = join(ASSETS_DIR, name);
+  for (const name of await listImages(dir)) {
+    const path = relative(process.cwd(), join(dir, name));
     const sizeMb = (await stat(path)).size / 1024 / 1024;
     if (sizeMb > MAX_FILE_MB) {
       problems.push(
@@ -51,16 +58,22 @@ const findOversizedImages = async () => {
   return problems;
 };
 
-export default () => ({
-  name: "check-assets",
-  hooks: {
-    "astro:build:start": async ({ logger }) => {
-      const problems = await findOversizedImages();
-      if (problems.length === 0) return;
-      for (const problem of problems) logger.error(problem);
-      throw new Error(
-        `Bygget stoppet: ${problems.length} bilde(r) i ${ASSETS_DIR} er for store eller ugyldige.`,
-      );
+export default () => {
+  let assetsDir;
+  return {
+    name: "check-assets",
+    hooks: {
+      "astro:config:done": ({ config }) => {
+        assetsDir = fileURLToPath(new URL("assets/", config.srcDir));
+      },
+      "astro:build:start": async ({ logger }) => {
+        const problems = await findOversizedImages(assetsDir);
+        if (problems.length === 0) return;
+        for (const problem of problems) logger.error(problem);
+        throw new Error(
+          `Bygget stoppet: ${problems.length} bilde(r) i ${relative(process.cwd(), assetsDir)} er for store eller ugyldige.`,
+        );
+      },
     },
-  },
-});
+  };
+};
