@@ -6,7 +6,7 @@ shows up there too.
 
 ## Getting started
 
-You need [Node.js](https://nodejs.org) (version 26 or newer).
+You need [Node.js](https://nodejs.org) (version 26).
 
 1. Make a copy of this repo (fork or "Use this template" on GitHub) and download it.
 2. Open a terminal in the folder and run:
