@@ -15,6 +15,20 @@ test("description keeps alt text", () => {
   );
 });
 
+test("description has no stray spaces around inline markup", () => {
+  assert.equal(
+    toFeedText('<p><strong>fet</strong>, <a href="/">lenke</a>. Fet<em>kursiv</em>ord</p>'),
+    "fet, lenke. Fetkursivord",
+  );
+});
+
+test("description separates block elements with a space", () => {
+  assert.equal(
+    toFeedText("<h2>Tittel</h2><ul><li>en</li><li>to</li></ul>"),
+    "Tittel en to",
+  );
+});
+
 test("description is truncated at a word boundary", () => {
   const long = "<p>" + "ord ".repeat(100) + "</p>";
   const text = toFeedText(long, 20);

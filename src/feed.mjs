@@ -68,11 +68,20 @@ export const toFeedHtml = (html, site) =>
     exclusiveFilter: (frame) => frame.tag === "img" && !frame.attribs.src,
   });
 
+const BLOCK_TAGS = new Set([
+  "p", "div", "li", "ul", "ol", "h1", "h2", "h3", "h4", "h5", "h6",
+  "blockquote", "pre", "br", "hr", "tr", "td", "th", "table", "figure", "figcaption",
+]);
+
+// inline tags like strong and a must not introduce spaces, or punctuation after them drifts
 const collectText = (node, parts) => {
-  if (node.type === "text") parts.push(node.data);
-  else if (node.name === "img") parts.push(node.attribs?.alt ?? "");
-  else if (node.name === "script" || node.name === "style") return;
+  if (node.type === "text") return parts.push(node.data);
+  if (node.name === "img") return parts.push(" ", node.attribs?.alt ?? "", " ");
+  if (node.name === "script" || node.name === "style") return;
+  const block = BLOCK_TAGS.has(node.name);
+  if (block) parts.push(" ");
   for (const child of node.children ?? []) collectText(child, parts);
+  if (block) parts.push(" ");
 };
 
 const truncate = (text, maxLength) => {
@@ -84,5 +93,5 @@ const truncate = (text, maxLength) => {
 export const toFeedText = (html, maxLength = DESCRIPTION_MAX_LENGTH) => {
   const parts = [];
   collectText(parseDocument(html), parts);
-  return truncate(parts.join(" ").replace(/\s+/g, " ").trim(), maxLength);
+  return truncate(parts.join("").replace(/\s+/g, " ").trim(), maxLength);
 };
