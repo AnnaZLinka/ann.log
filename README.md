@@ -21,8 +21,8 @@ You need [Node.js](https://nodejs.org) (version 26).
 
 ## Writing posts
 
-Each post is a Markdown file in the `content/` folder. Create a new file, for
-example `content/my-first-post.md`:
+Each post is a Markdown file in the `src/content/` folder. Create a new file, for
+example `src/content/my-first-post.md`:
 
 ```md
 ---
@@ -33,14 +33,14 @@ pubDate: 2026-11-06
 Write whatever you like here. **Bold text**, [links](https://example.com),
 lists and images work like regular Markdown.
 
-![a gif](../src/assets/wink.gif)
+![a gif](../assets/wink.gif)
 ```
 
 ## What you need to know
 
 - **`title`** and **`pubDate`** must be present at the top of the file.
 - Posts are shown newest first on the front page and in the feed.
-- Put images in `src/assets/` and link to them with `../src/assets/<filename>`.
+- Put images in `src/assets/` and link to them with `../assets/<filename>`.
 - The build stops if an image is wider or taller than 4000 px or larger than
   10 MB, so scale such images down before adding them.
 - Posts also appear in RSS readers. The feed strips scripts and anything other
@@ -53,13 +53,13 @@ lists and images work like regular Markdown.
 - `src/pages/index.astro` is the front page.
 - `src/layouts/Layout.astro` is the frame around every page (header, footer, RSS button).
 - `src/styles/global.css` holds the styles. The project uses [Tailwind](https://tailwindcss.com).
-- Want a new page? Create a new `.astro` file in `src/pages/`. `secret.astro`
-  becomes `/secret`, for example.
+- Want a new page? Create a new `.astro` file in `src/pages/`. `hemmelig.astro`
+  becomes `/hemmelig`, for example.
 
 ## The RSS feed
 
 The feed lives at `/rss.xml` and is generated automatically from the posts. You
-change the feed's title and description in `src/pages/rss.xml.js`. This is the
+change the feed's title and description in `src/pages/rss.xml.ts`. This is the
 address you submit to feed.netlife.com.
 
 ## Publishing
