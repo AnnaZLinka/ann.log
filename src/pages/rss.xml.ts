@@ -5,8 +5,8 @@ import type { APIRoute } from "astro";
 import { toFeedHtml, toFeedText } from "../feed.ts";
 import { getPosts } from "../posts";
 
-const TITLE = "Mitt personlige nettsted";
-const DESCRIPTION = "her poster jeg små innlegg når det passer seg";
+const TITLE = "ann.log";
+const DESCRIPTION = "små innlegg når det passer seg";
 
 export const GET: APIRoute = async (context) => {
   const site = context.site;
