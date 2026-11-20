@@ -10,10 +10,13 @@ import { htmlImages } from './src/html-images.ts';
 const env = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
 const SITE_URL = env.SITE_URL;
 if (!SITE_URL) throw new Error('SITE_URL is required (see .env.example)');
+// subpath the site is served from, e.g. /ann.log for a GitHub Pages project site; "/" when served at the root
+const BASE_PATH = env.BASE_PATH || "/";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+  base: BASE_PATH,
   // few breakpoints keep the variant count low, since markdown images get candidates up to their intrinsic size
   image: {
     layout: 'constrained',

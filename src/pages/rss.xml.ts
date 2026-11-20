@@ -7,10 +7,13 @@ import { getPosts } from "../posts";
 
 const TITLE = "ann.log";
 const DESCRIPTION = "små innlegg når det passer seg";
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 export const GET: APIRoute = async (context) => {
   const site = context.site;
   if (!site) throw new Error("site is required for the feed");
+  // the feed is served from the base path, so the channel link and item links start there
+  const feedSite = new URL(`${BASE}/`, site);
   const container = await AstroContainer.create();
   const posts = await getPosts();
   const items = await Promise.all(
@@ -22,14 +25,14 @@ export const GET: APIRoute = async (context) => {
         pubDate: post.data.pubDate,
         description: toFeedText(html),
         content: toFeedHtml(html, site),
-        link: `/#${post.id}`,
+        link: `${BASE}/#${post.id}`,
       };
     }),
   );
   return rss({
     title: TITLE,
     description: DESCRIPTION,
-    site,
+    site: feedSite,
     trailingSlash: false,
     items,
   });
